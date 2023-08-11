@@ -9,4 +9,10 @@ public class DiceMenu : MonoBehaviour
         // Load the scene with the given name
         UnityEngine.SceneManagement.SceneManager.LoadScene("SelectDiceScene");
     }
+
+    public void NavigateToStats()
+    {
+        // Load the scene with the given name
+        UnityEngine.SceneManagement.SceneManager.LoadScene("StatsScene");
+    }
 }
