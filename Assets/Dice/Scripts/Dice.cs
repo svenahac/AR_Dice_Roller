@@ -5,8 +5,8 @@ using TMPro;
 
 public class Dice : MonoBehaviour
 {
-    [SerializeField] float torqueMinimum = 1;
-    [SerializeField] float torqueMaximum = 5;
+    [SerializeField] float torqueMinimum = 3;
+    [SerializeField] float torqueMaximum = 10;
     [SerializeField] float throwStrength = 5;
     [SerializeField] TextMeshProUGUI textBox;
     Rigidbody rb;
@@ -38,7 +38,13 @@ public class Dice : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         yield return new WaitForSeconds(2);
-        CheckRolld12();
+        CheckRolld20();
+        /*
+        kdaj se zgodi da se prehitro zazana da se je kocka vstavla
+        v tem primeru bi rad še enkrat checkau roll
+        samo nevem kako tocno bi nardil to
+        if(rollValue == 0)CheckRolld20();
+        */
     }
     /*
     public void CheckRolld4(){
@@ -186,7 +192,7 @@ public class Dice : MonoBehaviour
 
         textBox.text = rollValue.ToString();
     }
-    */
+    
     public void CheckRolld12(){
         
         float y,y1,y2;
@@ -199,10 +205,91 @@ public class Dice : MonoBehaviour
         y1=Mathf.Round(vec1.y*100);       
         y2=Mathf.Round(vec2.y*100);
         
-        //Debug.Log("y:"+y.ToString() + " y1:"+y1.ToString() + " y2:"+y2.ToString());
+        Debug.Log("y:"+y.ToString() + " y1:"+y1.ToString() + " y2:"+y2.ToString());
 
+        if(y>-2 && y <=2){
+            if(y1>=83 && y1<=87){
+                if(y2>0)rollValue = 9;
+                else rollValue = 5;
+            }else if(y1>=-86 && y1<=-83){
+                if(y2>0)rollValue = 8;
+                else rollValue = 4;
+            }
+        }else if(y>=50 && y<= 55){
+            if(y2>0)rollValue = 7;
+            else rollValue = 1;
+        }else if(y>=-55 && y<= -50){
+            if(y2>0)rollValue = 12;
+            else rollValue = 6;
+        }else if(y>=83 && y<= 87){
+            if(y1>0)rollValue = 3;
+            else rollValue = 2;
+        }else if(y>=-87 && y<= -83){
+            if(y1>0)rollValue = 11;
+            else rollValue = 10;
+        }
+
+        textBox.text = rollValue.ToString();
         
-        
+    }
+*/
+    public void CheckRolld20(){
+            
+            float y,y1,y2;
+            Vector3 vec = transform.right;
+            Vector3 vec1 = transform.up;
+            Vector3 vec2 = transform.forward;
+            int rollValue =0;
+            
+            y=Mathf.Round(vec.y*100);
+            y1=Mathf.Round(vec1.y*100);       
+            y2=Mathf.Round(vec2.y*100);
+            
+            Debug.Log("y:"+y.ToString() + " y1:"+y1.ToString() + " y2:"+y2.ToString());
+
+    
+
+        if(y>=-5 && y<= 5){
+            if(y1>0){
+                if(y2>0)rollValue = 1;
+                else rollValue = 2;
+            }
+            else {
+                if(y2>0)rollValue = 20;
+                else rollValue = 19;
+            }
+        }else if(y>=54 && y<=58){
+            if(y1>0)rollValue = 12;
+            else rollValue = 3;
+        }else if(y>=-95 && y<=-91){
+            if(y2>0)rollValue = 4;
+            else rollValue = 9;
+        }else if(y>=-37 && y<=-32){
+            if(y1>0)rollValue = 5;
+            else rollValue = 13;
+        }else if(y>=-63 && y<=-55){
+            if(y1>0){
+                if(y2>0)rollValue = 18;
+                else rollValue = 6;
+            }else{
+                if(y2>0)rollValue = 14;
+                else rollValue = 11;
+            }
+        }else if(y>=59 && y<=63){
+            if(y1>0)rollValue = 7;
+            else rollValue = 8;
+        }else if(y>=91 && y<=95){
+            if(y2>0)rollValue = 10;
+            else rollValue = 17;
+        }else if(y>=32 && y<=37){
+            if(y1>0)rollValue = 15;
+            else rollValue = 16;
+        }else if(y>=54 && y<=58){
+            if(y1>0)rollValue = 12;
+            else rollValue = 3;
+        }
+
+        textBox.text = rollValue.ToString();
     }
 
 }
