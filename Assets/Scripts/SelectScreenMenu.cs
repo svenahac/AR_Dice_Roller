@@ -1,19 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class SelectScreenMenu : MonoBehaviour
 {
+
+    public static string[] dices = new string[6];
+
     public void Apply(){
-        Debug.Log("D4 is selected " + DiceChooser.D4 + " times\n");
-        Debug.Log("D6 is selected " + DiceChooser.D6 +" times\n");
-        Debug.Log("D8 is selected " + DiceChooser.D8 +" times\n");
-        Debug.Log("D10 is selected " + DiceChooser.D10 +" times\n");
-        Debug.Log("D12 is selected " + DiceChooser.D12 +" times\n");
-        Debug.Log("D20 is selected " + DiceChooser.D20 +" times\n");
-        Debug.Log("D100 is selected " + DiceChooser.D100 +" times\n");
-        Debug.Log("D% is selected " + DiceChooser.Dpercent +" times\n");
+        dices[0] = DiceChooser.D4;
+        dices[1] = DiceChooser.D6;
+        dices[2] = DiceChooser.D8;
+        dices[3] = DiceChooser.D10;
+        dices[4] = DiceChooser.D12;
+        dices[5] = DiceChooser.D20;
+        
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
     }
+
+    
 
     public void NavigateBack()
     {
