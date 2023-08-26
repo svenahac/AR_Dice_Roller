@@ -7,15 +7,15 @@ using TMPro;
 public class SelectScreenMenu : MonoBehaviour
 {
 
-    public static string[] dices = new string[6];
+    public static int[] dices = new int[6];
 
     public void Apply(){
-        dices[0] = DiceChooser.D4;
-        dices[1] = DiceChooser.D6;
-        dices[2] = DiceChooser.D8;
-        dices[3] = DiceChooser.D10;
-        dices[4] = DiceChooser.D12;
-        dices[5] = DiceChooser.D20;
+        dices[0] = DiceChooser.d4;
+        dices[1] = DiceChooser.d6;
+        dices[2] = DiceChooser.d8;
+        dices[3] = DiceChooser.d10;
+        dices[4] = DiceChooser.d12;
+        dices[5] = DiceChooser.d20;
         
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
     }
