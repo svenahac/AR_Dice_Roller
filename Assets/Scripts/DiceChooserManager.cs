@@ -23,10 +23,7 @@ public class DiceChooserManager : MonoBehaviour
 
     public void decrementD4()
     {
-        if (d4 > 0)
-        {
-            d4--;  
-        }
+        if (d4 > 0) d4--;  
     }
 
     public void incrementD6()
@@ -36,10 +33,7 @@ public class DiceChooserManager : MonoBehaviour
 
     public void decrementD6()
     {
-        if (d6 > 0)
-        {
-            d6--;
-        }
+        if (d6 > 0) d6--;
     }
 
     public void incrementD8()
@@ -49,10 +43,7 @@ public class DiceChooserManager : MonoBehaviour
 
     public void decrementD8()
     {
-        if (d8 > 0)
-        {
-            d8--;
-        }
+        if (d8 > 0) d8--;
     }
 
     public void incrementD10()
@@ -62,10 +53,7 @@ public class DiceChooserManager : MonoBehaviour
 
     public void decrementD10()
     {
-        if (d10 > 0)
-        {
-            d10--;
-        }
+        if (d10 > 0) d10--;
     }
 
     public void incrementD12()
@@ -75,10 +63,7 @@ public class DiceChooserManager : MonoBehaviour
 
     public void decrementD12()
     {
-        if (d12 > 0)
-        {
-            d12--;
-        }
+        if (d12 > 0) d12--;
     }
 
     public void incrementD20()
@@ -88,10 +73,7 @@ public class DiceChooserManager : MonoBehaviour
 
     public void decrementD20()
     {
-        if (d20 > 0)
-        {
-           d20--;
-        }
+        if (d20 > 0) d20--;
     }
 
     public void Start()
