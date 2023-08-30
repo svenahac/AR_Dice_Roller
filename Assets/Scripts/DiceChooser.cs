@@ -1,56 +1,113 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class DiceChooser : MonoBehaviour
 {
-   
-    public static string D4 = "0";
-    public static string D6;
-    public static string D8;
-    public static string D10;
-    public static string D12;
-    public static string D20;
-    public static string D100;
-    public static string Dpercent;
+  
+    public static int d4 = 0;
+    public static int d6 = 0;
+    public static int d8 = 0;
+    public static int d10 = 0;
+    public static int d12 = 0;
+    public static int d20 = 0;
+     
 
-   public void ReadD4(string s)
-   {
-       D4 = s;
-   }
 
-    public void ReadD6(string s)
-    {
-         D6 = s;
-    }
+     public void incrementD4()
+     {
+         
+         d4++;
+         
+     }
 
-    public void ReadD8(string s)
-    {
-         D8 = s;
-    }
+     public void decrementD4()
+     {
+         
+         if(d4 > 0){
+            d4--;
+            
+         }
+     }
 
-    public void ReadD10(string s)
-    {
-         D10 = s;
-    }
+     public void incrementD6()
+     {
+         
+         d6++;
+     }
 
-    public void ReadD12(string s)
-    {
-         D12 = s;
-    }
+     public void decrementD6()
+     {
+         if(d6 > 0){
+            d6--;
+         }
+     }
 
-    public void ReadD20(string s)
-    {
-         D20 = s;
-    }
+     public void incrementD8()
+     {
+         d8++;
+     }
 
-    public void ReadD100(string s)
-    {
-         D100 = s;
-    }
+     public void decrementD8()
+     {
+         if(d8 > 0){
+            d8--;
+         }
+     }
 
-    public void ReadDPercent(string s)
-    {
-         Dpercent = s;
-    }
+     public void incrementD10()
+     {
+         d10++;
+     }
+
+     public void decrementD10()
+     {
+         if(d10 > 0){
+            d10--;
+         }
+     }
+
+     public void incrementD12()
+     {
+         d12++;
+     }
+
+     public void decrementD12()
+     {
+         if(d12 > 0){
+            d12--;
+         }
+     }
+
+     public void incrementD20()
+     {
+         d20++;
+     }
+
+     public void decrementD20()
+     {
+         if(d20 > 0){
+            d20--;
+         }
+     }
+     void Start(){
+        SetDicePlaceholders();
+     }
+
+     void Update(){
+         
+        SetDicePlaceholders();
+     }
+
+     public void SetDicePlaceholders(){
+        GameObject.Find("D4Amount").GetComponent<TextMeshProUGUI>().text = d4.ToString();
+        GameObject.Find("D6Amount").GetComponent<TextMeshProUGUI>().text = d6.ToString();
+        GameObject.Find("D8Amount").GetComponent<TextMeshProUGUI>().text = d8.ToString();
+        GameObject.Find("D10Amount").GetComponent<TextMeshProUGUI>().text = d10.ToString();
+        GameObject.Find("D12Amount").GetComponent<TextMeshProUGUI>().text = d12.ToString();
+        GameObject.Find("D20Amount").GetComponent<TextMeshProUGUI>().text = d20.ToString();
+     }
+     
 }
