@@ -69,38 +69,43 @@ public class MainSceneManager : MonoBehaviour
                     foreach (ARRaycastHit hit in hits)
                     {
                         Pose pose = hits[0].pose;
-                        GameObject obj;
-
-                        switch (die)
-                        {
-                            case 0:
-                                obj = Instantiate(prefabD4, pose.position, pose.rotation);
-                                break;
-                            case 1:
-                                obj = Instantiate(prefabD6, pose.position, pose.rotation);
-                                break;
-                            case 2:
-                                obj = Instantiate(prefabD8, pose.position, pose.rotation);
-                                break;
-                            case 3:
-                                obj = Instantiate(prefabD10, pose.position, pose.rotation);
-                                break;
-                            case 4:
-                                obj = Instantiate(prefabD12, pose.position, pose.rotation);
-                                break;
-                            case 5:
-                                obj = Instantiate(prefabD20, pose.position, pose.rotation);
-                                break;
-                            default:
-                                obj = Instantiate(prefabD6, pose.position, pose.rotation);
-                                break;
-                        }
-
-                        aliveDice.Add(obj);
+                        instantiateDie(pose, die);
                     }
                 }
             }
         }
+    }
+
+    private void instantiateDie(Pose pose, int die)
+    {
+        GameObject obj;
+
+        switch (die)
+        {
+            case 0:
+                obj = Instantiate(prefabD4, pose.position, pose.rotation);
+                break;
+            case 1:
+                obj = Instantiate(prefabD6, pose.position, pose.rotation);
+                break;
+            case 2:
+                obj = Instantiate(prefabD8, pose.position, pose.rotation);
+                break;
+            case 3:
+                obj = Instantiate(prefabD10, pose.position, pose.rotation);
+                break;
+            case 4:
+                obj = Instantiate(prefabD12, pose.position, pose.rotation);
+                break;
+            case 5:
+                obj = Instantiate(prefabD20, pose.position, pose.rotation);
+                break;
+            default:
+                obj = Instantiate(prefabD6, pose.position, pose.rotation);
+                break;
+        }
+
+        aliveDice.Add(obj);
     }
 
     public void rollDice()

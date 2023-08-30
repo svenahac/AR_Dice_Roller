@@ -96,15 +96,15 @@ public class DiceChooserManager : MonoBehaviour
 
     public void Start()
     {
-        GameObject.Find("D4Amount").GetComponent<TextMeshProUGUI>().text = dices[0].ToString();
-        GameObject.Find("D6Amount").GetComponent<TextMeshProUGUI>().text = dices[1].ToString();
-        GameObject.Find("D8Amount").GetComponent<TextMeshProUGUI>().text = dices[2].ToString();
-        GameObject.Find("D10Amount").GetComponent<TextMeshProUGUI>().text = dices[3].ToString();
-        GameObject.Find("D12Amount").GetComponent<TextMeshProUGUI>().text = dices[4].ToString();
-        GameObject.Find("D20Amount").GetComponent<TextMeshProUGUI>().text = dices[5].ToString();
+        SetDiceCounts();
     }
 
     public void Update()
+    {
+        SetDiceCounts();
+    }
+
+    private void SetDiceCounts()
     {
         GameObject.Find("D4Amount").GetComponent<TextMeshProUGUI>().text = d4.ToString();
         GameObject.Find("D6Amount").GetComponent<TextMeshProUGUI>().text = d6.ToString();
