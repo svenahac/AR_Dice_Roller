@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -53,11 +54,8 @@ public class MainSceneManager : MonoBehaviour
 
                 if (raycastManager.Raycast(centerPos, hits, TrackableType.PlaneWithinPolygon))
                 {
-                    foreach (ARRaycastHit hit in hits)
-                    {
-                        Pose pose = hits[0].pose;
-                        instantiateDie(pose, die);
-                    }
+                    Pose pose = hits[0].pose;
+                    instantiateDie(pose, die);
                 }
             }
         }
@@ -113,13 +111,12 @@ public class MainSceneManager : MonoBehaviour
 
     private void RollDie(GameObject die)
     {
-        die.GetComponent<Rigidbody>().isKinematic = false;
         die.GetComponent<Rigidbody>().AddForce(Vector3.up * 150);
 
         die.GetComponent<Rigidbody>().AddTorque(
-            Random.Range(0, 5),
-            Random.Range(0, 5),
-            Random.Range(0, 5)
+            Random.Range(0, 30),
+            Random.Range(0, 30),
+            Random.Range(0, 30)
             );
 
         StartCoroutine(ReadRollResult(die));
@@ -143,79 +140,46 @@ public class MainSceneManager : MonoBehaviour
         else if (die.name.StartsWith("d12")) rolls[4][CheckRollD12(die) - 1]++;
         else if (die.name.StartsWith("d20")) rolls[5][CheckRollD20(die) - 1]++;
 
-        WriteRollResults();
+        int totalSum = 0;
+        totalSum += WriteRollResults(0);
+        totalSum += WriteRollResults(1);
+        totalSum += WriteRollResults(2);
+        totalSum += WriteRollResults(3);
+        totalSum += WriteRollResults(4);
+        totalSum += WriteRollResults(5);
+
+        GameObject.Find("TotalStats").GetComponent<TextMeshProUGUI>().text = "Total: " + totalSum;
     }
 
-    private void WriteRollResults()
+    private int WriteRollResults(int dieType)
     {
-        GameObject.Find("D4Stats").GetComponent<TextMeshProUGUI>().text = "D4:";
-        int sumD4 = 0;
-        for (int i = 1; i <= 4; i++) 
-        {
-            if (rolls[0][i - 1] == 0) continue;
-            if (rolls[0][i - 1] == 1) GameObject.Find("D4Stats").GetComponent<TextMeshProUGUI>().text += " + " + i;
-            else GameObject.Find("D4Stats").GetComponent<TextMeshProUGUI>().text += " + " + rolls[0][i - 1] + "x" + i;
-            sumD4 += rolls[0][i - 1] * i;
-        }
-        GameObject.Find("D4Stats").GetComponent<TextMeshProUGUI>().text += " = " + sumD4;
+        int sum = 0;
+        int dieNumber;
 
-        GameObject.Find("D6Stats").GetComponent<TextMeshProUGUI>().text = "D6:";
-        int sumD6 = 0;
-        for (int i = 1; i <= 6; i++)
+        switch (dieType)
         {
-            if (rolls[1][i - 1] == 0) continue;
-            if (rolls[1][i - 1] == 1) GameObject.Find("D6Stats").GetComponent<TextMeshProUGUI>().text += " + " + i;
-            else GameObject.Find("D6Stats").GetComponent<TextMeshProUGUI>().text += " + " + rolls[1][i - 1] + "x" + i;
-            sumD6 += rolls[1][i - 1] * i;
+            case 0: dieNumber = 4; break;
+            case 1: dieNumber = 6; break;
+            case 2: dieNumber = 8; break;
+            case 3: dieNumber = 10; break;
+            case 4: dieNumber = 12; break;
+            case 5: dieNumber = 20; break;
+            default: return -1;
         }
-        GameObject.Find("D6Stats").GetComponent<TextMeshProUGUI>().text += " = " + sumD6;
 
-        GameObject.Find("D8Stats").GetComponent<TextMeshProUGUI>().text = "D8:";
-        int sumD8 = 0;
-        for (int i = 1; i <= 8; i++)
+        TextMeshProUGUI textBox = GameObject.Find("D" + dieNumber + "Stats").GetComponent<TextMeshProUGUI>();
+
+        textBox.text = "D" + dieNumber + ":";
+        for (int i = 1; i <= dieNumber; i++) 
         {
-            if (rolls[2][i - 1] == 0) continue;
-            if (rolls[2][i - 1] == 1) GameObject.Find("D8Stats").GetComponent<TextMeshProUGUI>().text += " + " + i;
-            else GameObject.Find("D8Stats").GetComponent<TextMeshProUGUI>().text += " + " + rolls[2][i - 1] + "x" + i;
-            sumD8 += rolls[2][i - 1] * i;
+            if (rolls[dieType][i - 1] == 0) continue;
+            if (rolls[dieType][i - 1] == 1) textBox.text += " + " + i;
+            else textBox.text += " + " + rolls[dieType][i - 1] + "x" + i;
+            sum += rolls[dieType][i - 1] * i;
         }
-        GameObject.Find("D8Stats").GetComponent<TextMeshProUGUI>().text += " = " + sumD8;
+        textBox.text += " = " + sum;
 
-        GameObject.Find("D10Stats").GetComponent<TextMeshProUGUI>().text = "D10:";
-        int sumD10 = 0;
-        for (int i = 1; i <= 10; i++)
-        {
-            if (rolls[3][i - 1] == 0) continue;
-            if (rolls[3][i - 1] == 1) GameObject.Find("D10Stats").GetComponent<TextMeshProUGUI>().text += " + " + i;
-            else GameObject.Find("D10Stats").GetComponent<TextMeshProUGUI>().text += " + " + rolls[3][i - 1] + "x" + i;
-            sumD10 += rolls[3][i - 1] * i;
-        }
-        GameObject.Find("D10Stats").GetComponent<TextMeshProUGUI>().text += " = " + sumD10;
-
-        GameObject.Find("D12Stats").GetComponent<TextMeshProUGUI>().text = "D12:";
-        int sumD12 = 0;
-        for (int i = 1; i <= 12; i++)
-        {
-            if (rolls[4][i - 1] == 0) continue;
-            if (rolls[4][i - 1] == 1) GameObject.Find("D12Stats").GetComponent<TextMeshProUGUI>().text += "  + " + i;
-            else GameObject.Find("D12Stats").GetComponent<TextMeshProUGUI>().text += " + " + rolls[4][i - 1] + "x" + i;
-            sumD12 += rolls[4][i - 1] * i;
-        }
-        GameObject.Find("D12Stats").GetComponent<TextMeshProUGUI>().text += " = " + sumD12;
-
-        GameObject.Find("D20Stats").GetComponent<TextMeshProUGUI>().text = "D20:";
-        int sumD20 = 0;
-        for (int i = 1; i <= 20; i++)
-        {
-            if (rolls[5][i - 1] == 0) continue;
-            if (rolls[5][i - 1] == 1) GameObject.Find("D20Stats").GetComponent<TextMeshProUGUI>().text += " + " + i;
-            else GameObject.Find("D20Stats").GetComponent<TextMeshProUGUI>().text += " + " + rolls[5][i - 1] + "x" + i;
-            sumD20 += rolls[5][i - 1] * i;
-        }
-        GameObject.Find("D20Stats").GetComponent<TextMeshProUGUI>().text += " = " + sumD20;
-
-        int totalSum = sumD4 + sumD6 + sumD8 + sumD10 + sumD12 + sumD20;
-        GameObject.Find("TotalStats").GetComponent<TextMeshProUGUI>().text = "Total: " + totalSum;
+        return sum;
     }
 
     public int CheckRollD4(GameObject die)
